@@ -797,41 +797,239 @@ function showNotification(message, type = 'success') {
     }, 3000);
 }
 
-// Additional Features
+// Add additional random products with better variety
 function addRandomProducts() {
     const additionalProducts = [
         {
-            id: 9,
-            title: "Laptop Stand Adjustable",
-            price: 29.99,
-            originalPrice: 39.99,
-            image: "https://via.placeholder.com/300x200/708090/ffffff?text=Laptop+Stand",
-            rating: 4.4,
-            reviews: 432,
+            id: 13,
+            title: "MacBook Pro 14-inch M3",
+            price: 1999.99,
+            originalPrice: 2199.99,
+            image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop",
+            rating: 4.9,
+            reviews: 2341,
             category: "electronics",
-            description: "Ergonomic laptop stand with adjustable height and angle for comfortable working.",
-            features: ["Adjustable height", "Ergonomic design", "Portable", "Heat dissipation"],
-            colors: ["Silver", "Black"],
-            sizes: ["Universal"]
+            description: "Apple MacBook Pro with M3 chip, 14-inch Liquid Retina XDR display, 16GB RAM, 512GB SSD.",
+            features: ["M3 Chip", "14-inch Display", "16GB RAM", "512GB SSD", "All-day battery"],
+            colors: ["Space Gray", "Silver"],
+            sizes: ["14-inch"],
+            badge: "Professional"
         },
         {
-            id: 10,
-            title: "Cooking Utensil Set",
-            price: 49.99,
-            originalPrice: 69.99,
-            image: "https://via.placeholder.com/300x200/CD853F/ffffff?text=Utensil+Set",
-            rating: 4.6,
-            reviews: 789,
+            id: 14,
+            title: "Ray-Ban Aviator Classic",
+            price: 154.99,
+            originalPrice: 199.99,
+            image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop",
+            rating: 4.7,
+            reviews: 5432,
+            category: "clothing",
+            description: "Classic aviator sunglasses with polarized lenses and gold-tone metal frame.",
+            features: ["Polarized lenses", "UV protection", "Metal frame", "Classic design"],
+            colors: ["Gold", "Silver", "Black"],
+            sizes: ["55mm", "58mm", "62mm"],
+            badge: "Classic"
+        },
+        {
+            id: 15,
+            title: "KitchenAid Stand Mixer",
+            price: 329.99,
+            originalPrice: 449.99,
+            image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+            rating: 4.8,
+            reviews: 7821,
             category: "home",
-            description: "Complete cooking utensil set with wooden handles and stainless steel construction.",
-            features: ["Stainless steel", "Wooden handles", "Dishwasher safe", "Complete set"],
-            colors: ["Natural Wood", "Black"],
-            sizes: ["12-piece", "8-piece"]
+            description: "Professional 5-quart stand mixer with 10-speed control and multiple attachments.",
+            features: ["5-quart capacity", "10 speeds", "Multiple attachments", "Tilt-head design"],
+            colors: ["Red", "White", "Black", "Silver"],
+            sizes: ["5-quart"],
+            badge: "Kitchen Essential"
+        },
+        {
+            id: 16,
+            title: "Atomic Habits by James Clear",
+            price: 13.99,
+            originalPrice: 18.99,
+            image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=300&fit=crop",
+            rating: 4.9,
+            reviews: 12543,
+            category: "books",
+            description: "An easy and proven way to build good habits and break bad ones.",
+            features: ["320 pages", "Practical strategies", "Real-world examples", "Bestseller"],
+            colors: ["Standard"],
+            sizes: ["Paperback", "Hardcover", "Kindle", "Audiobook"],
+            badge: "Bestseller"
+        },
+        {
+            id: 17,
+            title: "Hydro Flask Water Bottle",
+            price: 44.99,
+            originalPrice: 54.99,
+            image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=300&fit=crop",
+            rating: 4.6,
+            reviews: 3214,
+            category: "sports",
+            description: "Insulated stainless steel water bottle that keeps drinks cold for 24 hours, hot for 12.",
+            features: ["Double-wall insulation", "24-hour cold", "12-hour hot", "BPA-free"],
+            colors: ["Black", "White", "Blue", "Pink", "Green"],
+            sizes: ["21oz", "32oz", "40oz"],
+            badge: "Eco-Friendly"
+        },
+        {
+            id: 18,
+            title: "Dyson V15 Detect Cordless Vacuum",
+            price: 649.99,
+            originalPrice: 749.99,
+            image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop",
+            rating: 4.8,
+            reviews: 1987,
+            category: "home",
+            description: "Powerful cordless vacuum with laser dust detection and advanced filtration.",
+            features: ["Laser dust detection", "60-min runtime", "Advanced filtration", "Lightweight"],
+            colors: ["Yellow", "Purple"],
+            sizes: ["Standard"],
+            badge: "Premium"
         }
     ];
     
     products.push(...additionalProducts);
     displayProducts();
+    updateFeaturedProducts();
+}
+
+// Add featured products section
+function updateFeaturedProducts() {
+    const featuredProducts = products.filter(p => p.badge && 
+        ['Best Seller', 'Amazon\'s Choice', 'New Release'].includes(p.badge));
+    
+    if (featuredProducts.length > 0) {
+        displayProducts(featuredProducts.slice(0, 8));
+    }
+}
+
+// Add product quick view functionality
+function showQuickView(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    const quickView = document.createElement('div');
+    quickView.className = 'quick-view';
+    quickView.innerHTML = `
+        <div class="quick-view-content">
+            <button class="close-quick-view" onclick="closeQuickView()">&times;</button>
+            <div class="quick-view-image">
+                <img src="${product.image}" alt="${product.title}">
+            </div>
+            <div class="quick-view-info">
+                <h3>${product.title}</h3>
+                <div class="quick-view-rating">
+                    <span class="stars">${generateStars(product.rating)}</span>
+                    <span>(${product.reviews.toLocaleString()} reviews)</span>
+                </div>
+                <div class="quick-view-price">
+                    $${product.price.toFixed(2)}
+                    <span class="original-price">$${product.originalPrice.toFixed(2)}</span>
+                </div>
+                <div class="quick-view-actions">
+                    <button class="btn btn-primary" onclick="addToCart(${product.id}); closeQuickView();">
+                        Add to Cart
+                    </button>
+                    <button class="btn btn-secondary" onclick="showProductDetails(${product.id}); closeQuickView();">
+                        View Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(quickView);
+    setTimeout(() => quickView.classList.add('active'), 10);
+}
+
+function closeQuickView() {
+    const quickView = document.querySelector('.quick-view');
+    if (quickView) {
+        quickView.classList.remove('active');
+        setTimeout(() => quickView.remove(), 300);
+    }
+}
+
+// Enhanced product hover effects
+function addProductHoverEffects() {
+    document.addEventListener('mouseover', function(e) {
+        if (e.target.closest('.product-card')) {
+            const card = e.target.closest('.product-card');
+            const quickViewBtn = card.querySelector('.quick-view-btn');
+            if (quickViewBtn) {
+                quickViewBtn.style.opacity = '1';
+                quickViewBtn.style.transform = 'translateY(0)';
+            }
+        }
+    });
+    
+    document.addEventListener('mouseout', function(e) {
+        if (e.target.closest('.product-card')) {
+            const card = e.target.closest('.product-card');
+            const quickViewBtn = card.querySelector('.quick-view-btn');
+            if (quickViewBtn) {
+                quickViewBtn.style.opacity = '0';
+                quickViewBtn.style.transform = 'translateY(10px)';
+            }
+        }
+    });
+}
+
+// Add loading states
+function showLoadingState() {
+    const productsGrid = document.getElementById('productsGrid');
+    productsGrid.innerHTML = `
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Loading products...</p>
+        </div>
+    `;
+}
+
+// Enhanced search with suggestions
+function setupSearchSuggestions() {
+    const searchInput = document.getElementById('searchInput');
+    const suggestionsContainer = document.createElement('div');
+    suggestionsContainer.className = 'search-suggestions';
+    searchInput.parentNode.appendChild(suggestionsContainer);
+    
+    searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        if (query.length < 2) {
+            suggestionsContainer.style.display = 'none';
+            return;
+        }
+        
+        const suggestions = products
+            .filter(p => p.title.toLowerCase().includes(query))
+            .slice(0, 5)
+            .map(p => p.title);
+        
+        if (suggestions.length > 0) {
+            suggestionsContainer.innerHTML = suggestions
+                .map(s => `<div class="suggestion-item" onclick="selectSuggestion('${s}')">${s}</div>`)
+                .join('');
+            suggestionsContainer.style.display = 'block';
+        } else {
+            suggestionsContainer.style.display = 'none';
+        }
+    });
+    
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+            suggestionsContainer.style.display = 'none';
+        }
+    });
+}
+
+function selectSuggestion(suggestion) {
+    document.getElementById('searchInput').value = suggestion;
+    document.querySelector('.search-suggestions').style.display = 'none';
+    searchProducts();
 }
 
 // Initialize additional features
