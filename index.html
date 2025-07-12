@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Clone - Online Shopping</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="https://via.placeholder.com/120x40/232F3E/ffffff?text=amazon" alt="Amazon">
+                </a>
+            </div>
+
+            <!-- Location -->
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="location-text">
+                    <span class="deliver-to">Deliver to</span>
+                    <span class="location-name">New York 10001</span>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <select class="search-category">
+                    <option value="all">All</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="books">Books</option>
+                    <option value="home">Home & Garden</option>
+                    <option value="sports">Sports</option>
+                </select>
+                <input type="text" class="search-input" placeholder="Search Amazon" id="searchInput">
+                <button class="search-btn" onclick="searchProducts()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <!-- User Account -->
+            <div class="account">
+                <div class="account-text">
+                    <span class="hello">Hello, <span id="username">Guest</span></span>
+                    <span class="account-lists">Account & Lists</span>
+                </div>
+                <div class="account-dropdown">
+                    <button class="auth-btn" onclick="toggleAuth()">Sign In</button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="showProfile()">Your Account</a>
+                        <a href="#" onclick="showOrders()">Your Orders</a>
+                        <a href="#" onclick="showWishlist()">Your Wishlist</a>
+                        <a href="#" onclick="logout()">Sign Out</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart -->
+            <div class="cart">
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <span class="cart-text">Cart</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-menu">
+                <i class="fas fa-bars"></i>
+                <span>All</span>
+            </div>
+            <div class="nav-items">
+                <a href="#" onclick="filterProducts('electronics')">Electronics</a>
+                <a href="#" onclick="filterProducts('clothing')">Fashion</a>
+                <a href="#" onclick="filterProducts('books')">Books</a>
+                <a href="#" onclick="filterProducts('home')">Home & Garden</a>
+                <a href="#" onclick="filterProducts('sports')">Sports & Outdoors</a>
+                <a href="#" onclick="showDeals()">Today's Deals</a>
+                <a href="#" onclick="showBestSellers()">Best Sellers</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-slider">
+                <div class="slide active">
+                    <img src="https://via.placeholder.com/1200x400/FF9900/ffffff?text=Summer+Sale+-+Up+to+70%+Off" alt="Summer Sale">
+                </div>
+                <div class="slide">
+                    <img src="https://via.placeholder.com/1200x400/232F3E/ffffff?text=Electronics+Deal+of+the+Day" alt="Electronics Deal">
+                </div>
+                <div class="slide">
+                    <img src="https://via.placeholder.com/1200x400/146EB4/ffffff?text=Free+Shipping+on+Orders+Over+$35" alt="Free Shipping">
+                </div>
+            </div>
+            <button class="prev-btn" onclick="changeSlide(-1)">❮</button>
+            <button class="next-btn" onclick="changeSlide(1)">❯</button>
+        </section>
+
+        <!-- Product Categories -->
+        <section class="categories" id="categories">
+            <h2>Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="filterProducts('electronics')">
+                    <img src="https://via.placeholder.com/200x150/1a1a1a/ffffff?text=Electronics" alt="Electronics">
+                    <h3>Electronics</h3>
+                </div>
+                <div class="category-card" onclick="filterProducts('clothing')">
+                    <img src="https://via.placeholder.com/200x150/FF69B4/ffffff?text=Fashion" alt="Fashion">
+                    <h3>Fashion</h3>
+                </div>
+                <div class="category-card" onclick="filterProducts('books')">
+                    <img src="https://via.placeholder.com/200x150/8B4513/ffffff?text=Books" alt="Books">
+                    <h3>Books</h3>
+                </div>
+                <div class="category-card" onclick="filterProducts('home')">
+                    <img src="https://via.placeholder.com/200x150/32CD32/ffffff?text=Home+Garden" alt="Home & Garden">
+                    <h3>Home & Garden</h3>
+                </div>
+                <div class="category-card" onclick="filterProducts('sports')">
+                    <img src="https://via.placeholder.com/200x150/FF4500/ffffff?text=Sports" alt="Sports">
+                    <h3>Sports & Outdoors</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products" id="products">
+            <div class="products-header">
+                <h2>Featured Products</h2>
+                <div class="filter-options">
+                    <select id="sortBy" onchange="sortProducts()">
+                        <option value="relevance">Sort by: Relevance</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Customer Rating</option>
+                        <option value="newest">Newest Arrivals</option>
+                    </select>
+                </div>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Deals Section -->
+        <section class="deals" id="deals">
+            <h2>Today's Deals</h2>
+            <div class="deals-grid" id="dealsGrid">
+                <!-- Deals will be populated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Shopping Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Shopping Cart</h2>
+                <span class="close" onclick="closeCart()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="cartItems"></div>
+                <div class="cart-total">
+                    <h3>Total: $<span id="cartTotal">0.00</span></h3>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn btn-primary" onclick="checkout()">Proceed to Checkout</button>
+                    <button class="btn btn-secondary" onclick="clearCart()">Clear Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeProductModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="productDetails">
+                <!-- Product details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Sign In</h2>
+                <span class="close" onclick="closeAuthModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="authForm">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-group" id="nameGroup" style="display:none;">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                    <p class="auth-toggle">
+                        Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign Up</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Get to Know Us</h3>
+                <ul>
+                    <li><a href="#">About Amazon</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                    <li><a href="#">Amazon Cares</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Make Money with Us</h3>
+                <ul>
+                    <li><a href="#">Sell on Amazon</a></li>
+                    <li><a href="#">Sell under Amazon Accelerator</a></li>
+                    <li><a href="#">Amazon Global Selling</a></li>
+                    <li><a href="#">Become an Affiliate</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Amazon Payment Products</h3>
+                <ul>
+                    <li><a href="#">Amazon Credit Card</a></li>
+                    <li><a href="#">Shop with Points</a></li>
+                    <li><a href="#">Reload Your Balance</a></li>
+                    <li><a href="#">Amazon Currency Converter</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Let Us Help You</h3>
+                <ul>
+                    <li><a href="#">Amazon and COVID-19</a></li>
+                    <li><a href="#">Your Account</a></li>
+                    <li><a href="#">Your Orders</a></li>
+                    <li><a href="#">Shipping Rates & Policies</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Amazon Clone. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
