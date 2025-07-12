@@ -363,24 +363,52 @@ function createProductCard(product) {
     
     const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
     
+    let badgeClass = '';
+    let badgeText = '';
+    
+    if (product.badge) {
+        switch(product.badge.toLowerCase()) {
+            case 'best seller':
+            case 'bestseller':
+                badgeClass = 'bestseller';
+                badgeText = 'Best Seller';
+                break;
+            case 'amazon\'s choice':
+            case 'choice':
+                badgeClass = 'choice';
+                badgeText = 'Amazon\'s Choice';
+                break;
+            case 'new release':
+            case 'new':
+                badgeClass = 'new';
+                badgeText = 'New';
+                break;
+            default:
+                badgeClass = '';
+                badgeText = product.badge;
+        }
+    }
+    
     card.innerHTML = `
+        ${product.badge ? `<div class="product-badge ${badgeClass}">${badgeText}</div>` : ''}
         <img src="${product.image}" alt="${product.title}" class="product-image">
         <div class="product-info">
             <h3 class="product-title">${product.title}</h3>
             <div class="product-rating">
                 <span class="stars">${generateStars(product.rating)}</span>
-                <span class="rating-count">(${product.reviews})</span>
+                <span class="rating-count">(${product.reviews.toLocaleString()})</span>
             </div>
             <div class="product-price">
                 $${product.price.toFixed(2)}
                 <span class="original-price">$${product.originalPrice.toFixed(2)}</span>
+                <span class="discount-badge">${discount}% off</span>
             </div>
             <div class="product-actions">
                 <button class="btn btn-primary" onclick="event.stopPropagation(); addToCart(${product.id})">
-                    Add to Cart
+                    <i class="fas fa-cart-plus"></i> Add to Cart
                 </button>
                 <button class="btn btn-secondary" onclick="event.stopPropagation(); addToWishlist(${product.id})">
-                    ❤️
+                    <i class="fas fa-heart"></i>
                 </button>
             </div>
         </div>
