@@ -598,14 +598,28 @@ body {
     font-size: 18px;
     font-weight: bold;
     color: #B12704;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .original-price {
     text-decoration: line-through;
     color: #666;
     font-size: 14px;
-    margin-left: 10px;
+    font-weight: normal;
+}
+
+.discount-badge {
+    background: linear-gradient(45deg, #B12704, #8B1F04);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
 .product-actions {
