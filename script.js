@@ -198,8 +198,23 @@ document.addEventListener('DOMContentLoaded', function() {
     displayProducts();
     startSlider();
     setupEventListeners();
+    setupSearchSuggestions();
+    addProductHoverEffects();
     updateCartCount();
     displayDeals();
+    
+    // Add loading animation
+    showLoadingState();
+    setTimeout(() => {
+        displayProducts();
+        updateFeaturedProducts();
+    }, 1000);
+    
+    // Initialize tooltips and additional features
+    setTimeout(() => {
+        initTooltips();
+        addRandomProducts();
+    }, 2000);
 });
 
 // Load user data from localStorage
