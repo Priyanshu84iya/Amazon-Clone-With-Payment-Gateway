@@ -1,15 +1,93 @@
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Promotional Banner */
+.promo-banner {
+    background: linear-gradient(135deg, #FF6B6B, #FF4757);
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
+    animation: slideDown 0.5s ease-out;
 }
 
-body {
+.promo-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.promo-content i {
+    font-size: 18px;
+    animation: pulse 2s infinite;
+}
+
+.promo-close {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.promo-close:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Logo Styles */
+.logo-text {
+    display: flex;
+    align-items: baseline;
     font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
-    line-height: 1.6;
+    text-decoration: none;
+}
+
+.logo-main {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: -1px;
+}
+
+.logo-sub {
+    font-size: 14px;
+    color: #FF9900;
+    margin-left: 2px;
+}
+
+.logo a {
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.logo a:hover {
+    background: rgba(255,255,255,0.1);
 }
 
 /* Header Styles */
