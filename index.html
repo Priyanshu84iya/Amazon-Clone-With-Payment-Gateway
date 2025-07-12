@@ -96,13 +96,44 @@
         <section class="hero" id="hero">
             <div class="hero-slider">
                 <div class="slide active">
-                    <img src="https://via.placeholder.com/1200x400/FF9900/ffffff?text=Summer+Sale+-+Up+to+70%+Off" alt="Summer Sale">
+                    <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&h=400&fit=crop" alt="Summer Electronics Sale">
+                    <div class="slide-content">
+                        <h2>Summer Electronics Sale</h2>
+                        <p>Up to 70% off on headphones, watches, and gadgets</p>
+                        <button class="slide-btn" onclick="filterProducts('electronics')">Shop Now</button>
+                    </div>
                 </div>
                 <div class="slide">
-                    <img src="https://via.placeholder.com/1200x400/232F3E/ffffff?text=Electronics+Deal+of+the+Day" alt="Electronics Deal">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=400&fit=crop" alt="Fashion Week Deals">
+                    <div class="slide-content">
+                        <h2>Fashion Week Deals</h2>
+                        <p>Trendy clothing and accessories at unbeatable prices</p>
+                        <button class="slide-btn" onclick="filterProducts('clothing')">Explore Fashion</button>
+                    </div>
                 </div>
                 <div class="slide">
-                    <img src="https://via.placeholder.com/1200x400/146EB4/ffffff?text=Free+Shipping+on+Orders+Over+$35" alt="Free Shipping">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=400&fit=crop" alt="Book Lovers Paradise">
+                    <div class="slide-content">
+                        <h2>Book Lovers Paradise</h2>
+                        <p>Discover bestsellers and new releases</p>
+                        <button class="slide-btn" onclick="filterProducts('books')">Browse Books</button>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=400&fit=crop" alt="Home & Kitchen Essentials">
+                    <div class="slide-content">
+                        <h2>Home & Kitchen Essentials</h2>
+                        <p>Transform your home with premium appliances</p>
+                        <button class="slide-btn" onclick="filterProducts('home')">Shop Home</button>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=400&fit=crop" alt="Free Shipping">
+                    <div class="slide-content">
+                        <h2>Free Shipping Worldwide</h2>
+                        <p>On orders over $35 - Limited time offer</p>
+                        <button class="slide-btn" onclick="showDeals()">View Deals</button>
+                    </div>
                 </div>
             </div>
             <button class="prev-btn" onclick="changeSlide(-1)">❮</button>
