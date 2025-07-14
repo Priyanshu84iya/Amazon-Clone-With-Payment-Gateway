@@ -703,10 +703,19 @@ function showPaymentGateway(total) {
                         </label>
                         
                         <label class="payment-option">
+                            <input type="radio" name="payment" value="amazonpay">
+                            <div class="payment-method amazonpay-method">
+                                <i class="fab fa-amazon-pay" style="color: #ff9900;"></i>
+                                <span>Amazon Pay</span>
+                                <span class="payment-badge">Recommended</span>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-option">
                             <input type="radio" name="payment" value="wallet">
                             <div class="payment-method">
                                 <i class="fas fa-wallet"></i>
-                                <span>Amazon Pay Wallet</span>
+                                <span>Other Digital Wallets</span>
                             </div>
                         </label>
                         
