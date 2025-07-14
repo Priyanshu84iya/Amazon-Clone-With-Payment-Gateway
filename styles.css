@@ -1969,6 +1969,34 @@ body {
     margin-top: 25px;
 }
 
+/* Amazon Pay Success Styles */
+.amazonpay-success {
+    background: linear-gradient(135deg, #fff5e6, #ffffff);
+    border: 2px solid #ff9900;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.amazonpay-cashback {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.amazonpay-cashback p {
+    margin: 0;
+    color: #232F3E;
+    font-size: 16px;
+}
+
+.amazonpay-cashback strong {
+    color: #ff9900;
+    font-size: 18px;
+}
+
 /* Payment Success Modal */
 .success-modal .modal-content {
     max-width: 500px;

@@ -1050,7 +1050,6 @@ function showPaymentSuccess(total, method) {
             showNotification(`₹${Math.floor(total * 0.01)} cashback added to your Amazon Pay balance!`, 'success');
         }, 2000);
     }
-}
     
     // Clear cart after successful payment
     setTimeout(() => {
