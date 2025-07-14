@@ -471,11 +471,11 @@ function showProductDetails(product) {
                 <h2 class="product-details-title">${product.title}</h2>
                 <div class="product-details-rating">
                     <span class="stars">${generateStars(product.rating)}</span>
-                    <span class="rating-count">(${product.reviews} reviews)</span>
+                    <span class="rating-count">(${product.reviews.toLocaleString()} reviews)</span>
                 </div>
                 <div class="product-details-price">
-                    $${product.price.toFixed(2)}
-                    <span class="original-price">$${product.originalPrice.toFixed(2)}</span>
+                    ${formatPrice(product.price)}
+                    <span class="original-price">${formatPrice(product.originalPrice)}</span>
                 </div>
                 <p class="product-details-description">${product.description}</p>
                 <div class="product-options">
@@ -561,7 +561,7 @@ function showCart() {
     
     if (cart.length === 0) {
         cartItems.innerHTML = '<p>Your cart is empty</p>';
-        cartTotal.textContent = '0.00';
+        cartTotal.textContent = '0';
     } else {
         let total = 0;
         cart.forEach(item => {
@@ -571,7 +571,7 @@ function showCart() {
                 <img src="${item.image}" alt="${item.title}" class="cart-item-image">
                 <div class="cart-item-info">
                     <div class="cart-item-title">${item.title}</div>
-                    <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                    <div class="cart-item-price">${formatPrice(item.price)}</div>
                     <div class="cart-item-quantity">
                         <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
                         <span class="quantity">${item.quantity}</span>
@@ -584,7 +584,7 @@ function showCart() {
             total += item.price * item.quantity;
         });
         
-        cartTotal.textContent = total.toFixed(2);
+        cartTotal.textContent = total.toLocaleString('en-IN');
     }
     
     modal.style.display = 'block';
