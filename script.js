@@ -1067,6 +1067,99 @@ function selectUpiApp(app) {
     // In a real application, this would open the UPI app
 }
 
+// Amazon Pay Functions
+function showAddMoney() {
+    const addMoneyModal = document.createElement('div');
+    addMoneyModal.className = 'modal add-money-modal';
+    addMoneyModal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fab fa-amazon-pay"></i> Add Money to Amazon Pay</h3>
+                <span class="close" onclick="closeAddMoneyModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="add-money-options">
+                    <h4>Select Amount</h4>
+                    <div class="amount-buttons">
+                        <button class="amount-btn" onclick="selectAmount(500)">₹500</button>
+                        <button class="amount-btn" onclick="selectAmount(1000)">₹1,000</button>
+                        <button class="amount-btn" onclick="selectAmount(2000)">₹2,000</button>
+                        <button class="amount-btn" onclick="selectAmount(5000)">₹5,000</button>
+                    </div>
+                    <div class="custom-amount">
+                        <input type="number" placeholder="Enter custom amount" id="customAmount" min="100" max="10000">
+                    </div>
+                </div>
+                
+                <div class="add-money-methods">
+                    <h4>Payment Method</h4>
+                    <label class="payment-option">
+                        <input type="radio" name="add-money-method" value="card" checked>
+                        <span>Credit/Debit Card</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="add-money-method" value="netbanking">
+                        <span>Net Banking</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="add-money-method" value="upi">
+                        <span>UPI</span>
+                    </label>
+                </div>
+                
+                <div class="add-money-actions">
+                    <button class="btn btn-primary" onclick="processAddMoney()">Add Money</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(addMoneyModal);
+    addMoneyModal.style.display = 'block';
+}
+
+function selectAmount(amount) {
+    document.getElementById('customAmount').value = amount;
+    document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('selected'));
+    event.target.classList.add('selected');
+}
+
+function processAddMoney() {
+    const amount = document.getElementById('customAmount').value;
+    if (!amount || amount < 100) {
+        showNotification('Please enter amount ₹100 or more', 'error');
+        return;
+    }
+    
+    closeAddMoneyModal();
+    showNotification(`₹${amount} added to your Amazon Pay balance successfully!`);
+    
+    // Update the balance display (simulate)
+    setTimeout(() => {
+        const balanceElements = document.querySelectorAll('.balance-amount');
+        balanceElements.forEach(el => {
+            const currentBalance = parseInt(el.textContent.replace('₹', '').replace(',', ''));
+            const newBalance = currentBalance + parseInt(amount);
+            el.textContent = `₹${newBalance.toLocaleString()}`;
+        });
+    }, 1000);
+}
+
+function closeAddMoneyModal() {
+    const modal = document.querySelector('.add-money-modal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+function selectWallet(walletType) {
+    document.querySelectorAll('.wallet-card').forEach(card => card.classList.remove('selected'));
+    event.target.closest('.wallet-card').classList.add('selected');
+    
+    document.getElementById('walletLogin').style.display = 'block';
+    showNotification(`Selected ${walletType} wallet`);
+}
+
 // Display Deals
 function displayDeals() {
     const dealsGrid = document.getElementById('dealsGrid');
