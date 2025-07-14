@@ -834,13 +834,109 @@ function showPaymentDetails(method) {
                 </div>
             `;
             break;
+        case 'amazonpay':
+            detailsContainer.innerHTML = `
+                <div class="amazonpay-details">
+                    <div class="amazonpay-header">
+                        <h4><i class="fab fa-amazon-pay" style="color: #ff9900;"></i> Amazon Pay</h4>
+                        <span class="amazonpay-secure">🔒 100% Secure</span>
+                    </div>
+                    
+                    <div class="amazonpay-balance">
+                        <div class="balance-card">
+                            <div class="balance-info">
+                                <i class="fas fa-wallet"></i>
+                                <div>
+                                    <span class="balance-label">Amazon Pay Balance</span>
+                                    <span class="balance-amount">₹2,450.75</span>
+                                </div>
+                            </div>
+                            <button class="add-money-btn" onclick="showAddMoney()">+ Add Money</button>
+                        </div>
+                    </div>
+                    
+                    <div class="amazonpay-benefits">
+                        <h5>Why choose Amazon Pay?</h5>
+                        <div class="benefits-list">
+                            <div class="benefit-item">
+                                <i class="fas fa-bolt" style="color: #ff9900;"></i>
+                                <span>Instant payments & faster checkout</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-gift" style="color: #ff9900;"></i>
+                                <span>Earn cashback on every purchase</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-undo" style="color: #ff9900;"></i>
+                                <span>Instant refunds to Amazon Pay</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-shield-alt" style="color: #ff9900;"></i>
+                                <span>100% secure transactions</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="amazonpay-options">
+                        <div class="payment-source">
+                            <label class="source-option">
+                                <input type="radio" name="amazonpay-source" value="balance" checked>
+                                <div class="source-details">
+                                    <span class="source-title">Pay from Amazon Pay Balance</span>
+                                    <span class="source-subtitle">Available: ₹2,450.75</span>
+                                </div>
+                            </label>
+                            
+                            <label class="source-option">
+                                <input type="radio" name="amazonpay-source" value="auto-reload">
+                                <div class="source-details">
+                                    <span class="source-title">Auto-reload from Bank/Card</span>
+                                    <span class="source-subtitle">Add money automatically and pay</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="amazonpay-note">
+                        <i class="fas fa-info-circle"></i>
+                        <span>You'll earn ₹${Math.floor(total * 0.01)} cashback on this purchase!</span>
+                    </div>
+                </div>
+            `;
+            break;
         case 'wallet':
             detailsContainer.innerHTML = `
                 <div class="wallet-details">
-                    <h4>Amazon Pay Wallet</h4>
-                    <div class="wallet-balance">
-                        <p>Available Balance: ₹5,00,000</p>
-                        <p class="wallet-note">Sufficient balance available for this purchase</p>
+                    <h4>Digital Wallets</h4>
+                    <div class="wallet-options">
+                        <div class="wallet-grid">
+                            <button class="wallet-card" onclick="selectWallet('paytm')">
+                                <img src="https://via.placeholder.com/50x30/00baf2/ffffff?text=Paytm" alt="Paytm">
+                                <span>Paytm Wallet</span>
+                            </button>
+                            <button class="wallet-card" onclick="selectWallet('phonepe')">
+                                <img src="https://via.placeholder.com/50x30/5f259f/ffffff?text=PhonePe" alt="PhonePe">
+                                <span>PhonePe Wallet</span>
+                            </button>
+                            <button class="wallet-card" onclick="selectWallet('googlepay')">
+                                <img src="https://via.placeholder.com/50x30/4285f4/ffffff?text=GPay" alt="Google Pay">
+                                <span>Google Pay</span>
+                            </button>
+                            <button class="wallet-card" onclick="selectWallet('mobikwik')">
+                                <img src="https://via.placeholder.com/50x30/2196f3/ffffff?text=MobiKwik" alt="MobiKwik">
+                                <span>MobiKwik</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="wallet-login" id="walletLogin" style="display: none;">
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="tel" placeholder="Enter mobile number" id="walletMobile">
+                        </div>
+                        <div class="form-group">
+                            <label>Wallet PIN/Password</label>
+                            <input type="password" placeholder="Enter PIN" id="walletPin">
+                        </div>
                     </div>
                 </div>
             `;
