@@ -627,7 +627,7 @@ function closeCart() {
     document.getElementById('cartModal').style.display = 'none';
 }
 
-// Checkout
+// Enhanced Checkout with Payment Gateway
 function checkout() {
     if (cart.length === 0) {
         showNotification('Your cart is empty!', 'error');
@@ -642,14 +642,324 @@ function checkout() {
     
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     
-    // Simulate checkout process
+    // Close cart modal and show payment gateway
+    closeCart();
+    showPaymentGateway(total);
+}
+
+// Payment Gateway
+function showPaymentGateway(total) {
+    const paymentModal = document.createElement('div');
+    paymentModal.className = 'modal payment-modal';
+    paymentModal.id = 'paymentModal';
+    
+    paymentModal.innerHTML = `
+        <div class="modal-content payment-content">
+            <div class="modal-header">
+                <h2>Amazon Pay - Secure Checkout</h2>
+                <span class="close" onclick="closePaymentModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="payment-summary">
+                    <h3>Order Summary</h3>
+                    <div class="payment-items">
+                        ${cart.map(item => `
+                            <div class="payment-item">
+                                <span>${item.title} (${item.quantity}x)</span>
+                                <span>${formatPrice(item.price * item.quantity)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="payment-total">
+                        <strong>Total: ${formatPrice(total)}</strong>
+                    </div>
+                </div>
+                
+                <div class="payment-methods">
+                    <h3>Select Payment Method</h3>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="upi" checked>
+                            <div class="payment-method">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>UPI (PhonePe, Paytm, GPay)</span>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card">
+                            <div class="payment-method">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Credit/Debit Card</span>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="netbanking">
+                            <div class="payment-method">
+                                <i class="fas fa-university"></i>
+                                <span>Net Banking</span>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="wallet">
+                            <div class="payment-method">
+                                <i class="fas fa-wallet"></i>
+                                <span>Amazon Pay Wallet</span>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cod">
+                            <div class="payment-method">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>Cash on Delivery</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="payment-details" id="paymentDetails">
+                    <!-- Payment details will be populated based on selection -->
+                </div>
+                
+                <div class="payment-actions">
+                    <button class="btn btn-primary payment-btn" onclick="processPayment(${total})">
+                        <i class="fas fa-shield-alt"></i> Pay Securely ${formatPrice(total)}
+                    </button>
+                    <p class="payment-security">
+                        <i class="fas fa-lock"></i> Your payment information is encrypted and secure
+                    </p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(paymentModal);
+    paymentModal.style.display = 'block';
+    
+    // Add event listeners for payment method selection
+    const paymentOptions = paymentModal.querySelectorAll('input[name="payment"]');
+    paymentOptions.forEach(option => {
+        option.addEventListener('change', function() {
+            showPaymentDetails(this.value);
+        });
+    });
+    
+    // Show default payment details (UPI)
+    showPaymentDetails('upi');
+}
+
+// Show Payment Details based on selected method
+function showPaymentDetails(method) {
+    const detailsContainer = document.getElementById('paymentDetails');
+    
+    switch(method) {
+        case 'upi':
+            detailsContainer.innerHTML = `
+                <div class="upi-details">
+                    <h4>UPI Payment</h4>
+                    <div class="form-group">
+                        <label>UPI ID</label>
+                        <input type="text" placeholder="yourname@upi" id="upiId">
+                    </div>
+                    <div class="upi-apps">
+                        <button class="upi-app" onclick="selectUpiApp('phonepe')">
+                            <img src="https://via.placeholder.com/40x40/5f259f/ffffff?text=PP" alt="PhonePe">
+                            PhonePe
+                        </button>
+                        <button class="upi-app" onclick="selectUpiApp('paytm')">
+                            <img src="https://via.placeholder.com/40x40/00baf2/ffffff?text=PT" alt="Paytm">
+                            Paytm
+                        </button>
+                        <button class="upi-app" onclick="selectUpiApp('gpay')">
+                            <img src="https://via.placeholder.com/40x40/4285f4/ffffff?text=GP" alt="GPay">
+                            Google Pay
+                        </button>
+                    </div>
+                </div>
+            `;
+            break;
+        case 'card':
+            detailsContainer.innerHTML = `
+                <div class="card-details">
+                    <h4>Card Details</h4>
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" id="cardNumber">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="text" placeholder="MM/YY" maxlength="5" id="expiryDate">
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <input type="text" placeholder="123" maxlength="3" id="cvv">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Cardholder Name</label>
+                        <input type="text" placeholder="John Doe" id="cardName">
+                    </div>
+                </div>
+            `;
+            break;
+        case 'netbanking':
+            detailsContainer.innerHTML = `
+                <div class="netbanking-details">
+                    <h4>Net Banking</h4>
+                    <div class="form-group">
+                        <label>Select Bank</label>
+                        <select id="bankSelect">
+                            <option value="">Choose your bank</option>
+                            <option value="sbi">State Bank of India</option>
+                            <option value="hdfc">HDFC Bank</option>
+                            <option value="icici">ICICI Bank</option>
+                            <option value="axis">Axis Bank</option>
+                            <option value="kotak">Kotak Mahindra Bank</option>
+                            <option value="pnb">Punjab National Bank</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            break;
+        case 'wallet':
+            detailsContainer.innerHTML = `
+                <div class="wallet-details">
+                    <h4>Amazon Pay Wallet</h4>
+                    <div class="wallet-balance">
+                        <p>Available Balance: ₹5,00,000</p>
+                        <p class="wallet-note">Sufficient balance available for this purchase</p>
+                    </div>
+                </div>
+            `;
+            break;
+        case 'cod':
+            detailsContainer.innerHTML = `
+                <div class="cod-details">
+                    <h4>Cash on Delivery</h4>
+                    <p>Pay when your order is delivered to your doorstep.</p>
+                    <div class="cod-note">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Additional ₹40 handling charges may apply for COD orders</span>
+                    </div>
+                </div>
+            `;
+            break;
+    }
+}
+
+// Process Payment
+function processPayment(total) {
+    const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+    
+    // Show payment processing animation
+    const paymentBtn = document.querySelector('.payment-btn');
+    paymentBtn.innerHTML = '<div class="loading"></div> Processing Payment...';
+    paymentBtn.disabled = true;
+    
+    // Simulate payment processing
+    setTimeout(() => {
+        // Simulate successful payment
+        const success = Math.random() > 0.1; // 90% success rate
+        
+        if (success) {
+            showPaymentSuccess(total, selectedPayment);
+        } else {
+            showPaymentFailure();
+        }
+    }, 3000);
+}
+
+// Payment Success
+function showPaymentSuccess(total, method) {
+    const orderId = 'AMZ' + Date.now();
+    
+    closePaymentModal();
+    
+    const successModal = document.createElement('div');
+    successModal.className = 'modal success-modal';
+    successModal.innerHTML = `
+        <div class="modal-content success-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Payment Successful!</h2>
+            <div class="order-details">
+                <p><strong>Order ID:</strong> ${orderId}</p>
+                <p><strong>Amount Paid:</strong> ${formatPrice(total)}</p>
+                <p><strong>Payment Method:</strong> ${method.toUpperCase()}</p>
+                <p><strong>Expected Delivery:</strong> ${getDeliveryDate()}</p>
+            </div>
+            <div class="success-actions">
+                <button class="btn btn-primary" onclick="closeSuccessModal(); clearCart();">Continue Shopping</button>
+                <button class="btn btn-secondary" onclick="downloadInvoice('${orderId}')">Download Invoice</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(successModal);
+    successModal.style.display = 'block';
+    
+    // Clear cart after successful payment
     setTimeout(() => {
         cart = [];
         updateCartCount();
         saveUserData();
-        closeCart();
-        showNotification(`Order placed successfully! Total: $${total.toFixed(2)}`);
     }, 1000);
+}
+
+// Payment Failure
+function showPaymentFailure() {
+    const paymentBtn = document.querySelector('.payment-btn');
+    paymentBtn.innerHTML = 'Payment Failed - Try Again';
+    paymentBtn.disabled = false;
+    paymentBtn.style.background = '#dc3545';
+    
+    showNotification('Payment failed. Please try again with a different method.', 'error');
+    
+    setTimeout(() => {
+        paymentBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Pay Securely';
+        paymentBtn.style.background = '';
+    }, 3000);
+}
+
+// Utility Functions for Payment Gateway
+function closePaymentModal() {
+    const modal = document.getElementById('paymentModal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+function closeSuccessModal() {
+    const modal = document.querySelector('.success-modal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+function getDeliveryDate() {
+    const date = new Date();
+    date.setDate(date.getDate() + 3);
+    return date.toLocaleDateString('en-IN', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+}
+
+function downloadInvoice(orderId) {
+    showNotification('Invoice downloaded successfully!');
+    // In a real application, this would generate and download a PDF
+}
+
+function selectUpiApp(app) {
+    showNotification(`Redirecting to ${app}...`);
+    // In a real application, this would open the UPI app
 }
 
 // Display Deals
