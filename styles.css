@@ -1662,6 +1662,313 @@ body {
     gap: 8px;
 }
 
+/* Amazon Pay Styles */
+.amazonpay-method {
+    position: relative;
+}
+
+.payment-badge {
+    background: linear-gradient(135deg, #ff9900, #ffb84d);
+    color: white;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+.amazonpay-details {
+    padding: 20px;
+    background: linear-gradient(135deg, #fff5e6, #ffffff);
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.amazonpay-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ff9900;
+}
+
+.amazonpay-header h4 {
+    color: #232F3E;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.amazonpay-secure {
+    background: #e8f5e8;
+    color: #2e7d2e;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.amazonpay-balance {
+    margin: 20px 0;
+}
+
+.balance-card {
+    background: linear-gradient(135deg, #ff9900, #ffb84d);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);
+}
+
+.balance-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.balance-info i {
+    font-size: 24px;
+}
+
+.balance-info div {
+    display: flex;
+    flex-direction: column;
+}
+
+.balance-label {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.balance-amount {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.add-money-btn {
+    background: white;
+    color: #ff9900;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-money-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.amazonpay-benefits {
+    margin: 25px 0;
+}
+
+.amazonpay-benefits h5 {
+    color: #232F3E;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.benefits-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #ff9900;
+}
+
+.benefit-item i {
+    font-size: 16px;
+}
+
+.benefit-item span {
+    font-size: 14px;
+    color: #333;
+}
+
+.amazonpay-options {
+    margin: 20px 0;
+}
+
+.payment-source {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.source-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.source-option:hover {
+    border-color: #ff9900;
+    background: #fff5e6;
+}
+
+.source-option input[type="radio"]:checked + .source-details {
+    color: #ff9900;
+}
+
+.source-option input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #ff9900;
+}
+
+.source-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.source-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.source-subtitle {
+    font-size: 14px;
+    color: #666;
+}
+
+.amazonpay-note {
+    background: #e8f5e8;
+    color: #2e7d2e;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Wallet Grid Styles */
+.wallet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.wallet-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.wallet-card:hover {
+    border-color: #007185;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-card.selected {
+    border-color: #007185;
+    background: #e3f3fd;
+}
+
+.wallet-card img {
+    height: 30px;
+    object-fit: contain;
+}
+
+.wallet-card span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Add Money Modal */
+.add-money-modal .modal-content {
+    max-width: 500px;
+}
+
+.amount-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.amount-btn {
+    padding: 15px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.amount-btn:hover,
+.amount-btn.selected {
+    border-color: #ff9900;
+    background: #fff5e6;
+    color: #ff9900;
+}
+
+.custom-amount {
+    margin: 20px 0;
+}
+
+.custom-amount input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.custom-amount input:focus {
+    border-color: #ff9900;
+    outline: none;
+}
+
+.add-money-methods {
+    margin: 25px 0;
+}
+
+.add-money-methods h4 {
+    margin-bottom: 15px;
+    color: #232F3E;
+}
+
+.add-money-actions {
+    margin-top: 25px;
+}
+
 /* Payment Success Modal */
 .success-modal .modal-content {
     max-width: 500px;

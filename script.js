@@ -965,17 +965,38 @@ function processPayment(total) {
     paymentBtn.innerHTML = '<div class="loading"></div> Processing Payment...';
     paymentBtn.disabled = true;
     
+    // Handle Amazon Pay specific processing
+    if (selectedPayment === 'amazonpay') {
+        const amazonPaySource = document.querySelector('input[name="amazonpay-source"]:checked')?.value;
+        
+        if (amazonPaySource === 'balance') {
+            // Check if sufficient balance
+            const currentBalance = 2450.75; // Simulated balance
+            if (total > currentBalance) {
+                showNotification('Insufficient Amazon Pay balance. Please add money or choose another payment method.', 'error');
+                paymentBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Pay Securely ' + formatPrice(total);
+                paymentBtn.disabled = false;
+                return;
+            }
+        }
+        
+        // Show Amazon Pay specific processing message
+        paymentBtn.innerHTML = '<div class="loading"></div> Processing via Amazon Pay...';
+        showNotification('Connecting to Amazon Pay...', 'info');
+    }
+    
     // Simulate payment processing
     setTimeout(() => {
-        // Simulate successful payment
-        const success = Math.random() > 0.1; // 90% success rate
+        // Amazon Pay has higher success rate
+        const successRate = selectedPayment === 'amazonpay' ? 0.95 : 0.9;
+        const success = Math.random() > (1 - successRate);
         
         if (success) {
             showPaymentSuccess(total, selectedPayment);
         } else {
             showPaymentFailure();
         }
-    }, 3000);
+    }, selectedPayment === 'amazonpay' ? 2000 : 3000);
 }
 
 // Payment Success
