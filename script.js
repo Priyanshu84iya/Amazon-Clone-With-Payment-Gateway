@@ -1002,6 +1002,12 @@ function processPayment(total) {
 // Payment Success
 function showPaymentSuccess(total, method) {
     const orderId = 'AMZ' + Date.now();
+    const methodName = method === 'amazonpay' ? 'Amazon Pay' : 
+                      method === 'upi' ? 'UPI' :
+                      method === 'card' ? 'Credit/Debit Card' :
+                      method === 'netbanking' ? 'Net Banking' :
+                      method === 'wallet' ? 'Digital Wallet' :
+                      method === 'cod' ? 'Cash on Delivery' : method.toUpperCase();
     
     closePaymentModal();
     
@@ -1013,10 +1019,19 @@ function showPaymentSuccess(total, method) {
                 <i class="fas fa-check-circle"></i>
             </div>
             <h2>Payment Successful!</h2>
+            ${method === 'amazonpay' ? `
+                <div class="amazonpay-success">
+                    <div class="amazonpay-cashback">
+                        <i class="fab fa-amazon-pay" style="color: #ff9900; font-size: 24px;"></i>
+                        <p>Congratulations! You've earned <strong>₹${Math.floor(total * 0.01)} cashback</strong> on this purchase!</p>
+                    </div>
+                </div>
+            ` : ''}
             <div class="order-details">
                 <p><strong>Order ID:</strong> ${orderId}</p>
                 <p><strong>Amount Paid:</strong> ${formatPrice(total)}</p>
-                <p><strong>Payment Method:</strong> ${method.toUpperCase()}</p>
+                <p><strong>Payment Method:</strong> ${methodName}</p>
+                ${method === 'amazonpay' ? `<p><strong>Transaction ID:</strong> APY${Date.now()}</p>` : ''}
                 <p><strong>Expected Delivery:</strong> ${getDeliveryDate()}</p>
             </div>
             <div class="success-actions">
@@ -1028,6 +1043,14 @@ function showPaymentSuccess(total, method) {
     
     document.body.appendChild(successModal);
     successModal.style.display = 'block';
+    
+    // Add cashback to Amazon Pay balance (simulate)
+    if (method === 'amazonpay') {
+        setTimeout(() => {
+            showNotification(`₹${Math.floor(total * 0.01)} cashback added to your Amazon Pay balance!`, 'success');
+        }, 2000);
+    }
+}
     
     // Clear cart after successful payment
     setTimeout(() => {
