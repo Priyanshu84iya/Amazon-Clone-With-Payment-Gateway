@@ -7,13 +7,13 @@ let isSignUp = false;
 let currentCategory = 'all';
 let currentSort = 'relevance';
 
-// Sample Products Data with Real Images
+// Sample Products Data with Real Images (Indian Rupees)
 const sampleProducts = [
     {
         id: 1,
         title: "Sony WH-1000XM4 Wireless Headphones",
-        price: 279.99,
-        originalPrice: 349.99,
+        price: 22999,
+        originalPrice: 29999,
         image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
         rating: 4.8,
         reviews: 15420,
@@ -27,8 +27,8 @@ const sampleProducts = [
     {
         id: 2,
         title: "Apple Watch Series 9 GPS",
-        price: 399.99,
-        originalPrice: 499.99,
+        price: 32999,
+        originalPrice: 41999,
         image: "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400&h=300&fit=crop",
         rating: 4.7,
         reviews: 8456,
@@ -42,8 +42,8 @@ const sampleProducts = [
     {
         id: 3,
         title: "Levi's 501 Original Jeans",
-        price: 69.99,
-        originalPrice: 89.99,
+        price: 5799,
+        originalPrice: 7499,
         image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop",
         rating: 4.6,
         reviews: 3242,
@@ -57,8 +57,8 @@ const sampleProducts = [
     {
         id: 4,
         title: "Clean Code: A Handbook of Agile Software Craftsmanship",
-        price: 34.99,
-        originalPrice: 44.99,
+        price: 2899,
+        originalPrice: 3799,
         image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop",
         rating: 4.9,
         reviews: 5876,
@@ -72,8 +72,8 @@ const sampleProducts = [
     {
         id: 5,
         title: "Manduka PRO Yoga Mat",
-        price: 89.99,
-        originalPrice: 119.99,
+        price: 7499,
+        originalPrice: 9999,
         image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop",
         rating: 4.8,
         reviews: 2134,
@@ -87,8 +87,8 @@ const sampleProducts = [
     {
         id: 6,
         title: "Breville Bambino Plus Espresso Machine",
-        price: 299.99,
-        originalPrice: 399.99,
+        price: 24999,
+        originalPrice: 33999,
         image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop",
         rating: 4.7,
         reviews: 1892,
@@ -102,8 +102,8 @@ const sampleProducts = [
     {
         id: 7,
         title: "Logitech MX Master 3S Wireless Mouse",
-        price: 99.99,
-        originalPrice: 129.99,
+        price: 8299,
+        originalPrice: 10999,
         image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=300&fit=crop",
         rating: 4.8,
         reviews: 6743,
@@ -117,8 +117,8 @@ const sampleProducts = [
     {
         id: 8,
         title: "Zara Floral Print Midi Dress",
-        price: 59.99,
-        originalPrice: 79.99,
+        price: 4999,
+        originalPrice: 6799,
         image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=300&fit=crop",
         rating: 4.4,
         reviews: 987,
@@ -132,8 +132,8 @@ const sampleProducts = [
     {
         id: 9,
         title: "Nintendo Switch OLED Console",
-        price: 349.99,
-        originalPrice: 399.99,
+        price: 28999,
+        originalPrice: 33999,
         image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&h=300&fit=crop",
         rating: 4.9,
         reviews: 12456,
@@ -147,8 +147,8 @@ const sampleProducts = [
     {
         id: 10,
         title: "Instant Pot Duo 7-in-1 Pressure Cooker",
-        price: 79.99,
-        originalPrice: 119.99,
+        price: 6799,
+        originalPrice: 9999,
         image: "https://images.unsplash.com/photo-1556909114-4e5444c82b72?w=400&h=300&fit=crop",
         rating: 4.7,
         reviews: 23187,
@@ -162,8 +162,8 @@ const sampleProducts = [
     {
         id: 11,
         title: "Adidas Ultraboost 22 Running Shoes",
-        price: 189.99,
-        originalPrice: 229.99,
+        price: 15799,
+        originalPrice: 19999,
         image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
         rating: 4.6,
         reviews: 4521,
@@ -177,8 +177,8 @@ const sampleProducts = [
     {
         id: 12,
         title: "The Psychology of Money",
-        price: 16.99,
-        originalPrice: 24.99,
+        price: 1399,
+        originalPrice: 2099,
         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
         rating: 4.8,
         reviews: 8934,
@@ -370,6 +370,11 @@ function displayProducts(productsToShow = products) {
     });
 }
 
+// Format price in Indian Rupees
+function formatPrice(price) {
+    return `₹${price.toLocaleString('en-IN')}`;
+}
+
 // Create Product Card
 function createProductCard(product) {
     const card = document.createElement('div');
@@ -414,8 +419,8 @@ function createProductCard(product) {
                 <span class="rating-count">(${product.reviews.toLocaleString()})</span>
             </div>
             <div class="product-price">
-                $${product.price.toFixed(2)}
-                <span class="original-price">$${product.originalPrice.toFixed(2)}</span>
+                ${formatPrice(product.price)}
+                <span class="original-price">${formatPrice(product.originalPrice)}</span>
                 <span class="discount-badge">${discount}% off</span>
             </div>
             <div class="product-actions">
