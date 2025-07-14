@@ -1047,6 +1047,31 @@ function selectSuggestion(suggestion) {
     searchProducts();
 }
 
+// Close promotional banner
+function closePromoBanner() {
+    const banner = document.querySelector('.promo-banner');
+    if (banner) {
+        banner.style.animation = 'slideUp 0.5s ease-out forwards';
+        setTimeout(() => banner.remove(), 500);
+    }
+}
+
+// Add CSS animation for slide up
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideUp {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
 // Initialize additional features
 setTimeout(() => {
     addRandomProducts();
